@@ -445,3 +445,101 @@ openstack
 +----------------------------------+-----------+--------------+--------------+---------+-----------+--------------------------------------------+
 (openstack) 
 ```
+
+## Installing glance 
+### Update the glance-api 
+```
+vi /etc/glance/glance-api.conf 
+```
+
+```
+[database]
+comment #sqlite_db = /var/lib/glance/glance.sqlite
+...
+connection = mysql+pymysql://glance:password@172.31.22.152/glance
+
+[keystone_authtoken]
+...
+auth_uri = http://172.31.22.152:5000
+auth_url = http://172.31.22.152:35357
+auth_plugin = password
+project_domain_id = default
+user_domain_id = default
+project_name = service
+username = glance
+password = password
+
+[paste_deploy]
+...
+flavor = keystone
+
+[glance_store]
+...
+default_store = file
+filesystem_store_datadir = /var/lib/glance/images/
+```
+### Update the glance-registry
+```
+vi /etc/glance/glance-registry.conf
+```
+```
+[database]
+...
+connection = mysql+pymysql://glance:password@172.31.22.152/glance
+
+[keystone_authtoken]
+...
+auth_uri = http://172.31.22.152:5000
+auth_url = http://172.31.22.152:35357
+auth_plugin = password
+project_domain_id = default
+user_domain_id = default
+project_name = service
+username = glance
+password = password
+
+[paste_deploy]
+...
+flavor = keystone
+```
+#### Restart glance service
+```
+service glance-api restart
+service glance-registry restart
+```
+### db_sync for glance
+```
+glance-manage db_sync
+```
+### Create the image at glance 
+Get the image if not done
+```
+wget http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img
+```
+Create the image
+```
+glance image-create --name "cirros" --file cirros-0.3.4-x86_64-disk.img --disk-format qcow2 --container-format bare --visibility public --progress
+```
+```
+[=============================>] 100%
++------------------+--------------------------------------+
+| Property         | Value                                |
++------------------+--------------------------------------+
+| checksum         | ee1eca47dc88f4879d8a229cc70a07c6     |
+| container_format | bare                                 |
+| created_at       | 2017-01-18T09:11:01Z                 |
+| disk_format      | qcow2                                |
+| id               | c6473c1b-d3de-4ec7-9286-9243fb31250e |
+| min_disk         | 0                                    |
+| min_ram          | 0                                    |
+| name             | cirros                               |
+| owner            | a2b6dd2f6cbe4def9c5de5390fa7c931     |
+| protected        | False                                |
+| size             | 13287936                             |
+| status           | active                               |
+| tags             | []                                   |
+| updated_at       | 2017-01-18T09:11:05Z                 |
+| virtual_size     | None                                 |
+| visibility       | public                               |
++------------------+--------------------------------------+
+```
