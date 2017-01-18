@@ -238,7 +238,7 @@ keystone-manage db_sync
 ### Set the variables
 ```
 export OS_TOKEN=password
-export OS_URL=http://192.168.1.19:35357/v3
+export OS_URL=http://172.31.22.152:35357/v3
 export OS_IDENTITY_API_VERSION=3
 ```
 
@@ -249,9 +249,9 @@ openstack service create --name keystone --description "OpenStack Identity" iden
 
 openstack endpoint create --region RegionOne identity public http://172.31.22.152:5000/v2.0
 
-openstack endpoint create --region RegionOne identity internal http://192.168.1.19:5000/v2.0
+openstack endpoint create --region RegionOne identity internal http://172.31.22.152:5000/v2.0
 
-openstack endpoint create --region RegionOne identity admin http://192.168.1.19:35357/v2.0
+openstack endpoint create --region RegionOne identity admin http://172.31.22.152:35357/v2.0
 ```
 
 
@@ -284,7 +284,7 @@ export OS_PROJECT_NAME=admin
 export OS_TENANT_NAME=admin
 export OS_USERNAME=admin
 export OS_PASSWORD=password
-export OS_AUTH_URL=http://192.168.1.19:35357/v3
+export OS_AUTH_URL=http://172.31.22.152:35357/v3
 export OS_IDENTITY_API_VERSION=3
 ```
 
@@ -302,9 +302,9 @@ openstack token issue
 openstack user create --password-prompt glance
 openstack role add --project service --user glance admin
 openstack service create --name glance --description "OpenStack Image service" image
-openstack endpoint create --region RegionOne image public http://192.168.1.19:9292
-openstack endpoint create --region RegionOne image internal http://192.168.1.19:9292
-openstack endpoint create --region RegionOne image admin http://192.168.1.19:9292
+openstack endpoint create --region RegionOne image public http://172.31.22.152:9292
+openstack endpoint create --region RegionOne image internal http://172.31.22.152:9292
+openstack endpoint create --region RegionOne image admin http://172.31.22.152:9292
 ```
 
 
@@ -314,9 +314,9 @@ openstack endpoint create --region RegionOne image admin http://192.168.1.19:929
 openstack user create --domain default --password-prompt nova
 openstack role add --project service --user nova admin
 openstack service create --name nova --description "OpenStack Compute" compute
-openstack endpoint create --region RegionOne compute public http://192.168.1.19:8774/v2/%\(tenant_id\)s
-openstack endpoint create --region RegionOne compute internal http://192.168.1.19:8774/v2/%\(tenant_id\)s
-openstack endpoint create --region RegionOne compute admin http://192.168.1.19:8774/v2/%\(tenant_id\)s
+openstack endpoint create --region RegionOne compute public http://172.31.22.152:8774/v2/%\(tenant_id\)s
+openstack endpoint create --region RegionOne compute internal http://172.31.22.152:8774/v2/%\(tenant_id\)s
+openstack endpoint create --region RegionOne compute admin http://172.31.22.152:8774/v2/%\(tenant_id\)s
 ```
 ### Create neutron
 ```
@@ -326,9 +326,9 @@ openstack role add --project service --user neutron admin
 
 openstack service create --name neutron --description "OpenStack Networking" network
 
-openstack endpoint create --region RegionOne network public http://192.168.1.19:9696
-openstack endpoint create --region RegionOne network internal http://192.168.1.19:9696
-openstack endpoint create --region RegionOne network admin http://192.168.1.19:9696
+openstack endpoint create --region RegionOne network public http://172.31.22.152:9696
+openstack endpoint create --region RegionOne network internal http://172.31.22.152:9696
+openstack endpoint create --region RegionOne network admin http://172.31.22.152:9696
 ```
 
 
@@ -339,10 +339,10 @@ openstack user create --domain default --password-prompt cinder
 openstack role add --project service --user cinder admin
 openstack service create --name cinder --description "OpenStack Block Storage" volume
 openstack service create --name cinderv2 --description "OpenStack Block Storage" volumev2
-openstack endpoint create --region RegionOne volume public http://192.168.1.19:8776/v1/%\(tenant_id\)s
-openstack endpoint create --region RegionOne volume admin http://192.168.1.19:8776/v1/%\(tenant_id\)s
-openstack endpoint create --region RegionOne volume internal http://192.168.1.19:8776/v1/%\(tenant_id\)s
-openstack endpoint create --region RegionOne volumev2 public http://192.168.1.19:8776/v2/%\(tenant_id\)s
-openstack endpoint create --region RegionOne volumev2 admin http://192.168.1.19:8776/v2/%\(tenant_id\)s
-openstack endpoint create --region RegionOne volumev2 internal http://192.168.1.19:8776/v2/%\(tenant_id\)s
+openstack endpoint create --region RegionOne volume public http://172.31.22.152:8776/v1/%\(tenant_id\)s
+openstack endpoint create --region RegionOne volume admin http://172.31.22.152:8776/v1/%\(tenant_id\)s
+openstack endpoint create --region RegionOne volume internal http://172.31.22.152:8776/v1/%\(tenant_id\)s
+openstack endpoint create --region RegionOne volumev2 public http://172.31.22.152:8776/v2/%\(tenant_id\)s
+openstack endpoint create --region RegionOne volumev2 admin http://172.31.22.152:8776/v2/%\(tenant_id\)s
+openstack endpoint create --region RegionOne volumev2 internal http://172.31.22.152:8776/v2/%\(tenant_id\)s
 ```
