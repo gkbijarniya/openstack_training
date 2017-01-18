@@ -560,3 +560,73 @@ openstack user delete glance
 openstack user create --password-prompt glance
 openstack role add --project service --user glance admin
 ```
+
+## Installing nova
+### Update nova config file /etc/nova/nova.conf.
+Add the following lines to /etc/nova/nova.conf
+```
+rpc_backend = rabbit
+auth_strategy = keystone
+my_ip = 172.31.22.152
+vnc_enabled = True
+vncserver_listen = 172.31.22.152
+vncserver_proxyclient_address = 172.31.22.152
+novncproxy_base_url = http://172.31.22.152:6080/vnc_auto.html
+network_api_class = nova.network.neutronv2.api.API
+security_group_api = neutron
+linuxnet_interface_driver = nova.network.linux_net.LinuxOVSInterfaceDriver
+firewall_driver = nova.virt.firewall.NoopFirewallDriver
+scheduler_default_filters=AllHostsFilter
+
+[database]
+connection = mysql://nova:password@172.31.22.152/nova
+
+[oslo_messaging_rabbit]
+rabbit_host = 127.0.0.1
+rabbit_userid = openstack
+rabbit_password = password
+
+[keystone_authtoken]
+auth_uri = http://172.31.22.152:5000
+auth_url = http://172.31.22.152:35357
+auth_plugin = password
+project_domain_id = default
+user_domain_id = default
+project_name = service
+username = nova
+password = password
+
+[glance]
+host = 172.31.22.152
+
+[oslo_concurrency]
+lock_path = /var/lock/nova
+ 
+[neutron]
+service_metadata_proxy = True
+metadata_proxy_shared_secret = openstack
+
+url = http://172.31.22.152:9696
+auth_strategy = keystone
+admin_auth_url = http://172.31.22.152:35357/v2.0
+admin_tenant_name = service
+admin_username = neutron
+admin_password = password
+
+[cinder]
+os_region_name = RegionOne
+```
+### sync nova db
+```
+nova db sync
+```
+note : here it is "db sync" and not db_sync
+
+### Restart Nova service
+```
+service nova-api restart; service nova-cert restart; service nova-consoleauth restart; service nova-scheduler restart; service nova-conductor restart; service nova-novncproxy restart; service nova-compute restart; service nova-console restart
+```
+check the status and make sure services states are start/running
+```
+service nova-api status; service nova-cert status; service nova-consoleauth status; service nova-scheduler status; service nova-conductor status; service nova-novncproxy status; service nova-compute status; service nova-console status
+```
