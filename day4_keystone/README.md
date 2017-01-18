@@ -552,3 +552,11 @@ root@ip-172-31-22-152:~# glance image-list
 | c6473c1b-d3de-4ec7-9286-9243fb31250e | cirros |
 +--------------------------------------+--------+
 ```
+#### Issue - glance image creation is failing
+* Check /var/log/glance/glance-api.log and found that keystone shows 401 for request
+* Deleted glance user and re-created it
+```
+openstack user delete glance
+openstack user create --password-prompt glance
+openstack role add --project service --user glance admin
+```
