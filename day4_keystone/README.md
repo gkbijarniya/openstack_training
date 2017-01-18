@@ -4,7 +4,7 @@
 ###  Do everything as a "root"
 
 ```
-sudo su
+sudo su - 
 ```
 
 ### Update dist-upgrade and add cloud-archive liberty
@@ -235,12 +235,31 @@ ln -s /etc/apache2/sites-available/wsgi-keystone.conf /etc/apache2/sites-enabled
 keystone-manage db_sync
 ```
 
+### Restart apache2
+```
+service apache2 restart
+```
+Note : apache2 restart will fail if keystone is aleady running. 
+check keystone status as
+``` 
+service keystone status
+```
+shows keystone start/running, process 18149
+Kill keystone and restart apache2
+```
+service keystone stop
+```
+
 ### Set the variables
 ```
 export OS_TOKEN=password
 export OS_URL=http://172.31.22.152:35357/v3
 export OS_IDENTITY_API_VERSION=3
 ```
+```
+echo $OS_TOKEN $OS_URL $OS_IDENTITY_API_VERSION
+```
+output - password http://172.31.22.152:35357/v3 3
 
 ## Start creating the services 
 ### Create keystone service of identity type
