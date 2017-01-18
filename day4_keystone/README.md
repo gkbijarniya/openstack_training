@@ -249,6 +249,15 @@ Kill keystone and restart apache2
 ```
 service keystone stop
 ```
+### Test the setup
+Use public IP to get the console
+```
+http://35.156.212.69/horizon/auth/login/?next=/horizon/
+```
+or 
+```
+http://35.156.212.69/
+```
 
 ### Set the variables
 ```
