@@ -365,3 +365,74 @@ openstack endpoint create --region RegionOne volumev2 public http://172.31.22.15
 openstack endpoint create --region RegionOne volumev2 admin http://172.31.22.152:8776/v2/%\(tenant_id\)s
 openstack endpoint create --region RegionOne volumev2 internal http://172.31.22.152:8776/v2/%\(tenant_id\)s
 ```
+
+## Display project , user, role , service list
+```
+openstack
+```
+```
+(openstack)  domain list
++---------+---------+---------+----------------------------------------------------------------------+
+| ID      | Name    | Enabled | Description                                                          |
++---------+---------+---------+----------------------------------------------------------------------+
+| default | Default | True    | Owns users and tenants (i.e. projects) available on Identity API v2. |
++---------+---------+---------+----------------------------------------------------------------------+
+(openstack) project list
++----------------------------------+---------+
+| ID                               | Name    |
++----------------------------------+---------+
+| 8cbab92b27a2489e9e0c6d4013376b58 | service |
+| a2b6dd2f6cbe4def9c5de5390fa7c931 | admin   |
++----------------------------------+---------+
+(openstack) user list
++----------------------------------+---------+
+| ID                               | Name    |
++----------------------------------+---------+
+| 0389dd901a8b423dbe4a938a21a41b51 | glance  |
+| 39148cb4a5b1495b9e0252b040e8b963 | admin   |
+| 75e89036020a4b3b9af5f0fed8ab2be4 | nova    |
+| b7a04ee2231d4d24ac1898e641dd769b | cinder  |
+| e6fd2b8403f0404c8ee8f6942a485afe | neutron |
++----------------------------------+---------+
+(openstack) role list
++----------------------------------+-------+
+| ID                               | Name  |
++----------------------------------+-------+
+| 6d12acbb474d410a92ade839f98eb30f | admin |
++----------------------------------+-------+
+(openstack) service list
++----------------------------------+----------+----------+
+| ID                               | Name     | Type     |
++----------------------------------+----------+----------+
+| 010d1a3056f04a42bee9f8934e21af83 | neutron  | network  |
+| 3fbbfbf0829248388215447e192d5b74 | keystone | identity |
+| 4e4e812609054274a6af8cefc7266835 | cinder   | volume   |
+| 56a476de8a0144b896f77ca6aac753ee | cinderv2 | volumev2 |
+| 6b1e39b39e134412b9148575d12cfce2 | nova     | compute  |
+| dfca6dab9fee467696ef21e4abd752c0 | glance   | image    |
++----------------------------------+----------+----------+
+(openstack) endpoint list
++----------------------------------+-----------+--------------+--------------+---------+-----------+--------------------------------------------+
+| ID                               | Region    | Service Name | Service Type | Enabled | Interface | URL                                        |
++----------------------------------+-----------+--------------+--------------+---------+-----------+--------------------------------------------+
+| 0f7497a1aa6943a5a416d6e199d1de06 | RegionOne | cinder       | volume       | True    | internal  | http://172.31.22.152:8776/v1/%(tenant_id)s |
+| 2004a375bf594edda77daefce010dd66 | RegionOne | cinderv2     | volumev2     | True    | admin     | http://172.31.22.152:8776/v2/%(tenant_id)s |
+| 21242711672c422387092474057fbe3d | RegionOne | cinderv2     | volumev2     | True    | public    | http://172.31.22.152:8776/v2/%(tenant_id)s |
+| 3d424dba5a4642af81e82058778ae0e0 | RegionOne | cinderv2     | volumev2     | True    | internal  | http://172.31.22.152:8776/v2/%(tenant_id)s |
+| 3e2e8ebd129b42139c30211d9949158f | RegionOne | glance       | image        | True    | internal  | http://172.31.22.152:9292                  |
+| 528e4c5accda40408e01aba93c056718 | RegionOne | cinder       | volume       | True    | admin     | http://172.31.22.152:8776/v1/%(tenant_id)s |
+| 5fcf9e4b4c214231b9edf56d1ecbb473 | RegionOne | nova         | compute      | True    | public    | http://172.31.22.152:8774/v2/%(tenant_id)s |
+| 812ff1bc0ab149049363425a7ebaf56a | RegionOne | glance       | image        | True    | admin     | http://172.31.22.152:9292                  |
+| 88dc4bd30f784ac280e3197c36acefa8 | RegionOne | nova         | compute      | True    | admin     | http://172.31.22.152:8774/v2/%(tenant_id)s |
+| 8bca4e333d364b0395dca1689ffecc5b | RegionOne | keystone     | identity     | True    | internal  | http://172.31.22.152:5000/v2.0             |
+| 8f75e595d0bd4fed9a08abfd623196ad | RegionOne | keystone     | identity     | True    | admin     | http://172.31.22.152:35357/v2.0            |
+| 9181725f69f94fec9d7c7c809343c1c0 | RegionOne | neutron      | network      | True    | public    | http://172.31.22.152:9696                  |
+| 96c37a86b9874d86b410250d5646d972 | RegionOne | nova         | compute      | True    | internal  | http://172.31.22.152:8774/v2/%(tenant_id)s |
+| 9b861d83de2540a3bf0e24613eae57c4 | RegionOne | glance       | image        | True    | public    | http://172.31.22.152:9292                  |
+| 9cd7c30d3d53454f9029b4c96c4c3944 | RegionOne | cinder       | volume       | True    | public    | http://172.31.22.152:8776/v1/%(tenant_id)s |
+| d03c0cca16ea4783a9e81764aceeca94 | RegionOne | neutron      | network      | True    | internal  | http://172.31.22.152:9696                  |
+| d1ff144c335b4e2c9ff782fb20de5028 | RegionOne | neutron      | network      | True    | admin     | http://172.31.22.152:9696                  |
+| ff504fe5d9bc4bd9bdba421fecc9c98d | RegionOne | keystone     | identity     | True    | public    | http://172.31.22.152:5000/v2.0             |
++----------------------------------+-----------+--------------+--------------+---------+-----------+--------------------------------------------+
+(openstack) 
+```
