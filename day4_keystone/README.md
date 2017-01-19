@@ -645,3 +645,10 @@ nova-conductor   ubuntu3                              internal         enabled  
 nova-compute     ubuntu3                              nova             enabled    :-)   2017-01-19 04:27:23
 nova-console     ubuntu3                              internal         enabled    :-)   2017-01-19 04:27:25
 ```
+```
+ nova list
++----+------+--------+------------+-------------+----------+
+| ID | Name | Status | Task State | Power State | Networks |
++----+------+--------+------------+-------------+----------+
++----+------+--------+------------+-------------+----------+
+```
