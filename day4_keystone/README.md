@@ -616,9 +616,12 @@ admin_password = password
 [cinder]
 os_region_name = RegionOne
 ```
+### Add qemu in config file /etc/nova/nova-compute.conf if ```kvm-ok``` doesnot show h/w support for virtualization.
+virt_type=qemu
+
 ### sync nova db
 ```
-nova db sync
+nova-manage db sync
 ```
 note : here it is "db sync" and not db_sync
 
@@ -629,4 +632,16 @@ service nova-api restart; service nova-cert restart; service nova-consoleauth re
 check the status and make sure services states are start/running
 ```
 service nova-api status; service nova-cert status; service nova-consoleauth status; service nova-scheduler status; service nova-conductor status; service nova-novncproxy status; service nova-compute status; service nova-console status
+```
+#### check the status through nova-manage services
+```
+root@ubuntu3:~# nova-manage service list
+No handlers could be found for logger "oslo_config.cfg"
+Binary           Host                                 Zone             Status     State Updated_At
+nova-cert        ubuntu3                              internal         enabled    :-)   2017-01-19 04:27:26
+nova-consoleauth ubuntu3                              internal         enabled    :-)   2017-01-19 04:27:21
+nova-scheduler   ubuntu3                              internal         enabled    :-)   2017-01-19 04:27:25
+nova-conductor   ubuntu3                              internal         enabled    :-)   2017-01-19 04:27:21
+nova-compute     ubuntu3                              nova             enabled    :-)   2017-01-19 04:27:23
+nova-console     ubuntu3                              internal         enabled    :-)   2017-01-19 04:27:25
 ```
